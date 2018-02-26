@@ -9,7 +9,7 @@ page = new PageComponent
 page.content.draggable.bounceOptions =
     friction: 32,
     tension: 1000,
-    tolerance: 0.01
+    tolerance: 1
     
 
 imagesrc = ["images/title01@2x.png","images/title02@2x.png","images/title03@2x.png"]
@@ -61,7 +61,7 @@ for number in [0...3]
     allIndicators.push(indicator)
 
 	
-
+#插图灰色底
 bg = new Layer
 	width: Screen.width*0.66
 	x: Align.center
@@ -71,7 +71,7 @@ bg = new Layer
 	image: "images/bg@2x.png"
 	clip: true
 
-
+#计时器仪表盘
 zz = new Layer
 	parent: bg
 	backgroundColor: null
@@ -79,9 +79,10 @@ zz = new Layer
 	z: 1
 	width: 140
 	height: 140
-	x: 188
-	y: 156
+	x: 190
+	y: 160
 
+#计时器仪表盘添加旋转事件
 zz.states.add
 	on:
 		rotation:180
@@ -93,8 +94,17 @@ zz.states.add
 		options:
 			curve:Spring(damping: 0.2)
 
+#支付宝印戳
+zfb = new Layer
+	width: 200
+	height: 200
+	image: "images/parts04@2x.png"
+	x: 320
+	y: 720
+	scale: 2
+	opacity: 0
 
-
+#金币
 coin = new Layer
 	width: 120
 	height: 110
@@ -212,8 +222,8 @@ for i in [0...partssrc.length]
 			scale:1
 			opacity:1
 			options:
-				curve:Spring(damping: 0.2)	
-				time:0.2
+				curve:Spring(damping: 0.3)	
+				time:0.4
 				delay:0.24
 				
 		off:
@@ -252,14 +262,20 @@ scrolltoX = (x) ->
 	coin.x = Utils.modulate(x,[0,Screen.width],[-420,96],false)
 	coin.y = Utils.modulate(x,[0,Screen.width],[300,620],false)
 	coin.opacity = Utils.modulate(x,[0,Screen.width],[0,1],false)
+	coin.opacity = Utils.modulate(x,[Screen.width,Screen.width*2],[1,0],false)
 	coin.scale = Utils.modulate(x,[0,Screen.width],[1.6,1],false)
 	
 	coin1.x = Utils.modulate(x,[0,Screen.width],[Screen.width+340,Screen.width-180],false)
 	coin1.y = Utils.modulate(x,[0,Screen.width],[bg.y+20,bg.y+120],false)
-	coin1.opacity = Utils.modulate(x,[0,Screen.width],[0,1],false)	
+	coin1.opacity = Utils.modulate(x,[0,Screen.width],[0,1],false)
+	coin1.opacity = Utils.modulate(x,[Screen.width,Screen.width*2],[1,0],false)	
 	coin1.scale = Utils.modulate(x,[0,Screen.width],[1.2,1],false)
 	
 	coin2.x = Utils.modulate(x,[0,Screen.width],[Screen.width+120,Screen.width-300],false)
 	coin2.y = Utils.modulate(x,[0,Screen.width],[bg.y+140,bg.y+240],false)
 	coin2.opacity = Utils.modulate(x,[0,Screen.width],[0,1],false)
+	coin2.opacity = Utils.modulate(x,[Screen.width,Screen.width*2],[1,0],false)
 	coin2.scale = Utils.modulate(x,[0,Screen.width],[1.6,1],false)
+	
+	zfb.scale = Utils.modulate(x,[Screen.width,Screen.width*2],[2,0.4],false)
+	zfb.opacity = Utils.modulate(x,[Screen.width,Screen.width*2],[0,1],false)

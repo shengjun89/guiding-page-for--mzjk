@@ -262,16 +262,19 @@ scrolltoX = (x) ->
 	coin.x = Utils.modulate(x,[0,Screen.width],[-420,96],false)
 	coin.y = Utils.modulate(x,[0,Screen.width],[300,620],false)
 	coin.opacity = Utils.modulate(x,[0,Screen.width],[0,1],false)
+	coin.opacity = Utils.modulate(x,[Screen.width,Screen.width*2],[1,0],false)
 	coin.scale = Utils.modulate(x,[0,Screen.width],[1.6,1],false)
 	
 	coin1.x = Utils.modulate(x,[0,Screen.width],[Screen.width+340,Screen.width-180],false)
 	coin1.y = Utils.modulate(x,[0,Screen.width],[bg.y+20,bg.y+120],false)
-	coin1.opacity = Utils.modulate(x,[0,Screen.width],[0,1],false)	
+	coin1.opacity = Utils.modulate(x,[0,Screen.width],[0,1],false)
+	coin1.opacity = Utils.modulate(x,[Screen.width,Screen.width*2],[1,0],false)	
 	coin1.scale = Utils.modulate(x,[0,Screen.width],[1.2,1],false)
 	
 	coin2.x = Utils.modulate(x,[0,Screen.width],[Screen.width+120,Screen.width-300],false)
 	coin2.y = Utils.modulate(x,[0,Screen.width],[bg.y+140,bg.y+240],false)
 	coin2.opacity = Utils.modulate(x,[0,Screen.width],[0,1],false)
+	coin2.opacity = Utils.modulate(x,[Screen.width,Screen.width*2],[1,0],false)
 	coin2.scale = Utils.modulate(x,[0,Screen.width],[1.6,1],false)
 	
 	zfb.scale = Utils.modulate(x,[Screen.width,Screen.width*2],[2,0.4],false)
