@@ -40,7 +40,7 @@ for number in [0...3]
      width: Screen.width*0.72
      x: Align.center
      y: 96
-     height: 280
+     height: Screen.height*0.22
      backgroundColor: null
      image: imagesrc[number]
 
@@ -63,10 +63,10 @@ for number in [0...3]
 	
 #插图灰色底
 bg = new Layer
-	width: Screen.width*0.66
-	x: Align.center
+	width: Screen.width*0.8
 	height: Screen.width*0.8
-	y: 520
+	x: Align.center
+	y: Align.center(Screen.width*0.13)
 	backgroundColor: null
 	image: "images/bg@2x.png"
 	clip: true
@@ -77,10 +77,11 @@ zz = new Layer
 	backgroundColor: null
 	image: "images/zz@2x.png"
 	z: 1
-	width: 140
-	height: 140
-	x: 190
-	y: 160
+	width: bg.width*0.28
+	height: bg.width*0.28
+	x: Align.center
+	y: Align.center
+
 
 #计时器仪表盘添加旋转事件
 zz.states.add
@@ -99,20 +100,20 @@ zfb = new Layer
 	width: 200
 	height: 200
 	image: "images/parts04@2x.png"
-	x: 320
-	y: 720
+	x: Align.center(Screen.width*0.05)
+	y: bg.y+bg.height*0.5
 	scale: 2
 	opacity: 0
 
 #金币
 coin = new Layer
-	width: 120
-	height: 110
+	width: Screen.width*0.16
+	height: Screen.width*0.16
 # 	x: 72
 # 	y: 800
 	scale: 1.6
-	x: -420
-	y: 300
+	x: -Screen.width+560
+	y: Screen.height*0.4
 	opacity:0
 	backgroundColor: null
 	image: "images/coin.png"
@@ -134,8 +135,8 @@ coin1 = new Layer
 	
 coin2 = new Layer
 	scale: 1.6
-	width: 85
-	height: 80
+	width: Screen.width*0.12
+	height: Screen.width*0.12
 # 	x: Screen.width-300
 	x: Screen.width+120
 	backgroundColor: null
@@ -147,6 +148,20 @@ coin2 = new Layer
 	y: bg.y+140
 	opacity: 0
 
+btn = new Layer
+	x: Align.center
+	y: Align.bottom(-96)
+	z: 3
+	scale: 0.6
+	backgroundColor: "transparent"
+	width: Screen.width
+	height: Screen.width*0.3
+	image: "images/btn.png"
+	opacity: 0
+
+
+
+
 pics=[]
 
 for i in [0...3]
@@ -154,23 +169,22 @@ for i in [0...3]
 		parent: bg
 		backgroundColor: null
 		x: Align.center
-		width: 302
-		height: 444
+		width:bg.width*0.6
+		height: bg.width
 		image: picsrc[i]
 		z: 1
-		y: 520
 		opacity: 0
 
 	pic.states.add
 		on:
-			y: 80
+			y: Align.center
 			opacity:1
 			options:
 				curve: Spring(damping: 0.5)
 				time: 0.5
 				
 		off:
-			y: 520
+			y: Align.center(120)
 			opacity:0
 			options:
 				curve: Spring(damping: 0.5)
@@ -206,12 +220,11 @@ parts = []
 
 for i in [0...partssrc.length]
 	partspic = new Layer
-		width: 495
-		height: 600
+		width: 0.8*Screen.width
+		height: 0.8*Screen.width
 		x: Align.center
 		y: bg.y
-	# 	opacity: 1
-		scale:0.6
+		scale:1
 		opacity: 0
 		image: partssrc[i]
 	
@@ -259,20 +272,26 @@ page.on Events.Move, ->
 
 scrolltoX = (x) ->
 	zz.rotation = Utils.modulate(x,[0,Screen.width],[0,180],false)
-	coin.x = Utils.modulate(x,[0,Screen.width],[-420,96],false)
-	coin.y = Utils.modulate(x,[0,Screen.width],[300,620],false)
+	zz.opacity = Utils.modulate(x,[0,Screen.width],[1,0],false)
+	coin.x = Utils.modulate(x,[0,Screen.width],[-420,Screen.width*0.12],false)
+	coin.y = Utils.modulate(x,[0,Screen.width],[Screen.height*0.4,Screen.height*0.6],false)
 	coin.opacity = Utils.modulate(x,[0,Screen.width],[0,1],false)
+	coin.opacity = Utils.modulate(x,[Screen.width,Screen.width*2],[1,0],false)
 	coin.scale = Utils.modulate(x,[0,Screen.width],[1.6,1],false)
 	
 	coin1.x = Utils.modulate(x,[0,Screen.width],[Screen.width+340,Screen.width-180],false)
 	coin1.y = Utils.modulate(x,[0,Screen.width],[bg.y+20,bg.y+120],false)
-	coin1.opacity = Utils.modulate(x,[0,Screen.width],[0,1],false)	
+	coin1.opacity = Utils.modulate(x,[0,Screen.width],[0,1],false)
+	coin1.opacity = Utils.modulate(x,[Screen.width,Screen.width*2],[1,0],false)	
 	coin1.scale = Utils.modulate(x,[0,Screen.width],[1.2,1],false)
 	
 	coin2.x = Utils.modulate(x,[0,Screen.width],[Screen.width+120,Screen.width-300],false)
 	coin2.y = Utils.modulate(x,[0,Screen.width],[bg.y+140,bg.y+240],false)
 	coin2.opacity = Utils.modulate(x,[0,Screen.width],[0,1],false)
+	coin2.opacity = Utils.modulate(x,[Screen.width,Screen.width*2],[1,0],false)
 	coin2.scale = Utils.modulate(x,[0,Screen.width],[1.6,1],false)
+	btn.opacity = Utils.modulate(x,[Screen.width,Screen.width*2],[0,1],false)
+	
 	
 	zfb.scale = Utils.modulate(x,[Screen.width,Screen.width*2],[2,0.4],false)
 	zfb.opacity = Utils.modulate(x,[Screen.width,Screen.width*2],[0,1],false)

@@ -1,15 +1,15 @@
 {
   "orientation" : 0,
   "updateDelay" : 0.29999999999999999,
-  "cachedDeviceHeight" : 1334,
+  "cachedDeviceHeight" : 1136,
   "contentScale" : 1,
   "fullScreen" : false,
-  "cachedDeviceWidth" : 750,
+  "cachedDeviceWidth" : 640,
   "sharedPrototype" : true,
   "propertyPanelToggleStates" : {
     "Filters" : false
   },
-  "deviceType" : "apple-iphone-7-black",
+  "deviceType" : "apple-iphone-5s-space-gray",
   "projectId" : "639CD7DB-D1CB-4C5B-AFA8-FD5088446140",
   "deviceOrientation" : 0,
   "selectedHand" : "",

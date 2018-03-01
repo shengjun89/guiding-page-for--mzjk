@@ -40,7 +40,7 @@ for number in [0...3]
      width: Screen.width*0.72
      x: Align.center
      y: 96
-     height: 280
+     height: Screen.height*0.22
      backgroundColor: null
      image: imagesrc[number]
 
@@ -61,27 +61,29 @@ for number in [0...3]
     allIndicators.push(indicator)
 
 	
-
+#插图灰色底
 bg = new Layer
 	width: Screen.width*0.66
 	x: Align.center
 	height: Screen.width*0.8
-	y: 520
+	y: Align.center(Screen.width*0.12)
 	backgroundColor: null
 	image: "images/bg@2x.png"
 	clip: true
 
-
+#计时器仪表盘
 zz = new Layer
 	parent: bg
 	backgroundColor: null
 	image: "images/zz@2x.png"
 	z: 1
-	width: 140
-	height: 140
-	x: 188
-	y: 156
+	width: bg.width*0.28
+	height: bg.width*0.28
+	x: Align.center
+	y: Align.center
 
+
+#计时器仪表盘添加旋转事件
 zz.states.add
 	on:
 		rotation:180
@@ -93,17 +95,17 @@ zz.states.add
 		options:
 			curve:Spring(damping: 0.2)
 
-
+#支付宝印戳
 zfb = new Layer
 	width: 200
 	height: 200
 	image: "images/parts04@2x.png"
-	x: 320
-	y: 720
+	x: Align.center(Screen.width*0.05)
+	y: bg.y+bg.height*0.5
 	scale: 2
 	opacity: 0
 
-
+#金币
 coin = new Layer
 	width: 120
 	height: 110
@@ -146,6 +148,20 @@ coin2 = new Layer
 	y: bg.y+140
 	opacity: 0
 
+btn = new Layer
+	x: Align.center
+	y: Align.bottom(-96)
+	z: 3
+	scale: 0.6
+	backgroundColor: "transparent"
+	width: Screen.width
+	height: Screen.width*0.3
+	image: "images/btn.png"
+	opacity: 0
+
+
+
+
 pics=[]
 
 for i in [0...3]
@@ -153,8 +169,8 @@ for i in [0...3]
 		parent: bg
 		backgroundColor: null
 		x: Align.center
-		width: 302
-		height: 444
+		width:bg.width*0.6
+		height: bg.width
 		image: picsrc[i]
 		z: 1
 		y: 520
@@ -205,12 +221,12 @@ parts = []
 
 for i in [0...partssrc.length]
 	partspic = new Layer
-		width: 495
-		height: 600
+		width: 0.8*Screen.width
+		height: 0.6*Screen.width
 		x: Align.center
 		y: bg.y
 	# 	opacity: 1
-		scale:0.6
+# 		scale:0.8
 		opacity: 0
 		image: partssrc[i]
 	
@@ -221,8 +237,8 @@ for i in [0...partssrc.length]
 			scale:1
 			opacity:1
 			options:
-				curve:Spring(damping: 0.2)	
-				time:0.2
+				curve:Spring(damping: 0.3)	
+				time:0.4
 				delay:0.24
 				
 		off:
@@ -258,20 +274,26 @@ page.on Events.Move, ->
 
 scrolltoX = (x) ->
 	zz.rotation = Utils.modulate(x,[0,Screen.width],[0,180],false)
+	zz.opacity = Utils.modulate(x,[0,Screen.width],[1,0],false)
 	coin.x = Utils.modulate(x,[0,Screen.width],[-420,96],false)
 	coin.y = Utils.modulate(x,[0,Screen.width],[300,620],false)
 	coin.opacity = Utils.modulate(x,[0,Screen.width],[0,1],false)
+	coin.opacity = Utils.modulate(x,[Screen.width,Screen.width*2],[1,0],false)
 	coin.scale = Utils.modulate(x,[0,Screen.width],[1.6,1],false)
 	
 	coin1.x = Utils.modulate(x,[0,Screen.width],[Screen.width+340,Screen.width-180],false)
 	coin1.y = Utils.modulate(x,[0,Screen.width],[bg.y+20,bg.y+120],false)
-	coin1.opacity = Utils.modulate(x,[0,Screen.width],[0,1],false)	
+	coin1.opacity = Utils.modulate(x,[0,Screen.width],[0,1],false)
+	coin1.opacity = Utils.modulate(x,[Screen.width,Screen.width*2],[1,0],false)	
 	coin1.scale = Utils.modulate(x,[0,Screen.width],[1.2,1],false)
 	
 	coin2.x = Utils.modulate(x,[0,Screen.width],[Screen.width+120,Screen.width-300],false)
 	coin2.y = Utils.modulate(x,[0,Screen.width],[bg.y+140,bg.y+240],false)
 	coin2.opacity = Utils.modulate(x,[0,Screen.width],[0,1],false)
+	coin2.opacity = Utils.modulate(x,[Screen.width,Screen.width*2],[1,0],false)
 	coin2.scale = Utils.modulate(x,[0,Screen.width],[1.6,1],false)
+	btn.opacity = Utils.modulate(x,[Screen.width,Screen.width*2],[0,1],false)
+	
 	
 	zfb.scale = Utils.modulate(x,[Screen.width,Screen.width*2],[2,0.4],false)
 	zfb.opacity = Utils.modulate(x,[Screen.width,Screen.width*2],[0,1],false)
